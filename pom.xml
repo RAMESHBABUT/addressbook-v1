@@ -519,11 +519,11 @@
             </reporting>
         </profile>
     </profiles>
-   <distributionManagement>
+<distributionManagement>
     <repository>
         <id>central</id>
-        <name>xxx</name>
-        <url>xx</url>
+        <name>a0xsinza1h9pk-artifactory-primary-0-releases</name>
+        <url>https://devopsjfrogrepo.jfrog.io/artifactory/adbook-libs-release</url>
     </repository>
 </distributionManagement>
 </project>
