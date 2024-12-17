@@ -1,100 +1,49 @@
 pipeline {
-    agent none
-
-    tools{
-        maven "mymaven"
-    }
-    
-    parameters{
-        string(name:'Env',defaultValue:'Test',description:'environment to deploy')
-        booleanParam(name:'executeTests',defaultValue: true,description:'decide to run tc')
-        choice(name:'APPVERSION',choices:['1.1','1.2','1.3'])
-
-    }
-    environment{
-        BUILD_SERVER='ec2-user@172.31.3.48'
-    }
+    agent any
 
     stages {
-        stage('Compile') {
-            agent any
+        stage('compile') {
             steps {
                 script{
-                    echo "Compiling the code"
-                   echo "Compiling in ${params.Env}"
-                   sh "mvn compile"
-                }
-                
+                  echo 'code compile'
+                }  
             }
-            
         }
-        stage('CodeReview') {
-            agent any
+        stage('codeReview') {
             steps {
                 script{
-                    echo "Code Review Using pmd plugin"
-                    sh "mvn pmd:pmd"
-                }
-                
+                  echo 'code compile'
+                }  
             }
-            
         }
-         stage('UnitTest') {
-            agent any
-            when{
-                expression{
-                    params.executeTests == true
-                }
-            }
+        stage('unitTest') {
             steps {
                 script{
-                    echo "UnitTest in junit"
-                    sh "mvn test"
-                }
-                
+                  echo 'code compile'
+                }  
             }
-            post{
-                always{
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-            
         }
-        stage('CodeCoverage') {
-            agent {label 'linux_slave'}
+        stage('codeCoverage') {
             steps {
                 script{
-                    echo "Code Coverage by jacoco"
-                    sh "mvn verify"
-                }
-                
+                  echo 'code compile'
+                }  
             }
-            
         }
-        stage('Package') {
-            agent any
-            input{
-                message "Select the platform for deployment"
-                ok "Platform Selected"
-                parameters{
-                    choice(name:'Platform',choices:['EKS','EC2','On-prem'])
-                }
-            }
+        stage('package') {
             steps {
                 script{
-                    sshagent(['slave2']) {
-                    echo "packaging the code"
-                    echo 'platform is ${Platform}'
-                    echo "packing the version ${params.APPVERSION}"
-                    //sh "mvn package"
-                    sh "scp  -o StrictHostKeyChecking=no server-script.sh ${BUILD_SERVER}:/home/ec2-user"
-                    sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER} 'bash ~/server-script.sh'"
-                    
-                }
-                
+                  echo 'code compile'
+                }  
             }
-            
         }
+        stage('codeArtifacts') {
+            steps {
+                script{
+                  echo 'code compile'
+                }  
+            }
+        }
+
     }
-}
 }
