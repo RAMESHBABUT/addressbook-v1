@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent none
     tools{
         maven "mymaven"
     }
@@ -12,6 +12,7 @@ pipeline {
     }
     stages {
         stage('compile') {
+            agent any
             steps {
                 script{
                   echo 'code compile'
@@ -21,6 +22,7 @@ pipeline {
             }
         }
         stage('codeReview') {
+            agent any
             steps {
                 script{
                   echo 'performing code review'
@@ -30,6 +32,7 @@ pipeline {
             }
         }
         stage('unitTest') {
+            agent any
             when{
                 expression{
                     params.executeTests == true
@@ -44,6 +47,7 @@ pipeline {
             }
         }
         stage('codeCoverage') {
+            agent any
             steps {
                 script{
                   echo 'performing code coverage'
@@ -53,6 +57,7 @@ pipeline {
             }
         }
         stage('package') {
+            agent {label 'linux_remoteslave'} 
             input{
                 message "Select the platform for deployment"
                 ok "Platform Selected"
@@ -70,6 +75,7 @@ pipeline {
             }
         }
         stage('codeArtifacts') {
+            agent {label 'linux_remoteslave'}
             steps {
                 script{
                   echo 'copy the artifacts repo'
