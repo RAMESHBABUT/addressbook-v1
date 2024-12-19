@@ -61,7 +61,7 @@ pipeline {
                 script{
                   echo 'copy the artifacts repo'
                   echo "copy the artifacts in ${params.Env}"
-                  sh "deploy -s settings.xml"
+                  sh "mvn deploy -s settings.xml"
                 }  
             }
         }
