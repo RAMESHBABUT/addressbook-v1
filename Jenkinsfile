@@ -62,7 +62,7 @@ pipeline {
         stage('package') {
             steps {
                 script{
-                    sshagent(['newslave2']) {
+                    sshagent(['newslave']) {
                     echo "packaging the code"
                     echo 'platform is ${Platform}'
                     echo "packing the version ${params.APPVERSION}"
