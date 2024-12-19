@@ -48,10 +48,18 @@ pipeline {
             }
         }
         stage('package') {
+            input{
+                message "Select the platform for deployment"
+                ok "Platform Selected"
+                parameters{
+                    choice(name:'Platform',choices:['EKS','EC2','On-prem'])
+                }
+            }
             steps {
                 script{
                   echo 'package the code'
                   echo "package the code in ${params.Env}"
+                  echo "package app version ${params.APPVERSION}"  
                   sh "mvn package"
                 }  
             }
