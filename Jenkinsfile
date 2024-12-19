@@ -53,7 +53,7 @@ pipeline {
             }
         }
         stage('package') {
-            agent {label 'linux_remoteslave'} 
+            
             input{
                 message "Select the platform for deployment"
                 ok "Platform Selected"
@@ -71,7 +71,7 @@ pipeline {
             }
         }
         stage('codeArtifacts') {
-            agent {label 'linux_remoteslave'}
+            
             steps {
                 script{
                   echo 'copy the artifacts repo'
