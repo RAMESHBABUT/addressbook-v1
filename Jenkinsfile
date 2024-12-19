@@ -1,5 +1,5 @@
 pipeline {
-    agent none
+    agent {label 'linux_remoteslave'}
     tools{
         maven "mymaven"
     }
@@ -12,7 +12,6 @@ pipeline {
     }
     stages {
         stage('compile') {
-            agent any
             steps {
                 script{
                   echo 'code compile'
@@ -22,7 +21,6 @@ pipeline {
             }
         }
         stage('codeReview') {
-            agent any
             steps {
                 script{
                   echo 'performing code review'
@@ -32,8 +30,7 @@ pipeline {
             }
         }
         stage('unitTest') {
-            agent any
-            when{
+             when{
                 expression{
                     params.executeTests == true
                 }
@@ -47,8 +44,7 @@ pipeline {
             }
         }
         stage('codeCoverage') {
-            agent any
-            steps {
+             steps {
                 script{
                   echo 'performing code coverage'
                   echo "perform code coverage in ${params.Env}"
