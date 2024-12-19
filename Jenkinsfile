@@ -10,6 +10,9 @@ pipeline {
         choice(name:'APPVERSION',choices:['1.1','1.2','1.3'])
 
     }
+    environment{
+        BUILD_SERVER='ec2-user@172.31.12.185'
+    }    
     stages {
         stage('compile') {
             agent any
@@ -60,10 +63,13 @@ pipeline {
             agent {label 'linux_remoteslave'}
             steps {
                 script{
-                  echo 'package the code'
-                  echo "package the code in ${params.Env}"
-                  echo "package app version ${params.APPVERSION}"  
-                  sh "mvn package"
+                    sshagent(['newslave2']) {
+                    echo "packaging the code"
+                    echo 'platform is ${Platform}'
+                    echo "packing the version ${params.APPVERSION}"
+                    //sh "mvn package"
+                    sh "scp  -o StrictHostKeyChecking=no server-script.sh ${BUILD_SERVER}:/home/ec2-user"
+                    sh "ssh -o StrictHostKeyChecking=no ${BUILD_SERVER} 'bash ~/server-script.sh'"
                 }  
             }
         }
