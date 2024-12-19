@@ -60,7 +60,6 @@ pipeline {
             }
         }
         stage('package') {
-            agent {label 'linux_remoteslave'}
             steps {
                 script{
                     sshagent(['newslave2']) {
