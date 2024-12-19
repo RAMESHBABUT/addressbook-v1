@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'linux_remoteslave'}
+    agent none
     tools{
         maven "mymaven"
     }
@@ -12,6 +12,7 @@ pipeline {
     }
     stages {
         stage('compile') {
+            agent any
             steps {
                 script{
                   echo 'code compile'
@@ -21,6 +22,7 @@ pipeline {
             }
         }
         stage('codeReview') {
+            agent any
             steps {
                 script{
                   echo 'performing code review'
@@ -30,6 +32,7 @@ pipeline {
             }
         }
         stage('unitTest') {
+            agent any
              when{
                 expression{
                     params.executeTests == true
@@ -44,6 +47,7 @@ pipeline {
             }
         }
         stage('codeCoverage') {
+            agent any
              steps {
                 script{
                   echo 'performing code coverage'
@@ -53,6 +57,7 @@ pipeline {
             }
         }
         stage('package') {
+            agent {label 'linux_remoteslave'}
             steps {
                 script{
                   echo 'package the code'
@@ -63,6 +68,7 @@ pipeline {
             }
         }
         stage('codeArtifacts') {
+            agent {label 'linux_remoteslave'}
             
             steps {
                 script{
