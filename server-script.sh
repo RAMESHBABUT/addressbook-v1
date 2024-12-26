@@ -7,7 +7,7 @@ sudo systemctl start docker
 if [ -d "addressbook-v1" ]
 then
   echo "repo is cloned and exists"
-    git pull origin docker-nov
+    git pull origin addbookDocker
     cd addressbook-v1
 else
   git clone https://github.com/RAMESHBABUT/addressbook-v1.git
