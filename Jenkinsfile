@@ -60,6 +60,7 @@ pipeline {
             }
         }
         stage('package') {
+            agent any
             steps {
                 script{
                     sshagent(['newslave2']) {
