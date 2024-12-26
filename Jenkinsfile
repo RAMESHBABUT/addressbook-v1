@@ -75,7 +75,7 @@ pipeline {
             }
         }
         stage('codeArtifacts') {
-            agent {label 'linux_remoteslave'}
+            agent {label 'linux_slave2'}
             
             steps {
                 script{
