@@ -11,7 +11,7 @@ pipeline {
     // }
     environment{
         DEV_SERVER='ec2-user@172.31.12.185'
-       IMAGE_NAME='rameshthiri/devopsdocker:mymavenrepov1:$BUILD_NUMBER'
+       IMAGE_NAME='rameshthiri/devopsdocker:$BUILD_NUMBER'
         //IMAGE_NAME='newaxisdevops.jfrog.io/addbook-docker/addbook:$BUILD_NUMBER'
         DEPLOY_SERVER='ec2-user@172.31.11.49'
     }
