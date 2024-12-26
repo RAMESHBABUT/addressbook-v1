@@ -14,7 +14,7 @@ else
 fi
 
 cd addressbook-v1
-git checkout addbookDocker
+git checkout master
 # mvn package
 # mvn -U deploy -s settings.xml
 
