@@ -11,12 +11,13 @@ pipeline {
             steps {
                 echo 'this is compile job' 
                 echo "this environment is ${params.Env}"
-                
+                sh "mvn compile"
             }
         }
                 stage('codeReview') {
             steps {
                 echo 'this codeReview job' 
+                sh "mvn pmd:pmd"
             }
         }
         stage('unitTest') {
@@ -27,16 +28,19 @@ pipeline {
             }            
             steps {
                 echo 'this is unitTest job' 
+                sh "mvn test"
             }
         }
         stage('codeVerify') {
             steps {
                 echo 'this is codeVerify job' 
+                sh "mvn verify"
             }
         }
         stage('package') {
             steps {
                 echo 'this is package job' 
+                sh "mvn package"
             }
         }
 
