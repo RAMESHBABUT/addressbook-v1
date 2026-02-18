@@ -10,8 +10,7 @@ pipeline {
         stage('compile') {
             steps {
                 echo 'this is compile job' 
-                echo "this envir
-                onment is ${params.Env}"
+                echo "this environment is ${params.Env}"
                 
             }
         }
