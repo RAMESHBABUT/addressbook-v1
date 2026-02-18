@@ -11,7 +11,7 @@ pipeline {
 
     }
     environment{
-        BUILD_SERVER='ec2-user@172.31.12.185'
+        BUILD_SERVER='ec2-user@172.31.38.185'
     }    
     stages {
         stage('compile') {
@@ -63,7 +63,7 @@ pipeline {
             agent any
             steps {
                 script{
-                    sshagent(['newslave2']) {
+                    sshagent(['sshagent']) {
                     echo "packaging the code"
                     echo 'platform is ${Platform}'
                     echo "packing the version ${params.APPVERSION}"
@@ -75,13 +75,13 @@ pipeline {
             }
         }
         stage('codeArtifacts') {
-            agent {label 'linux_slave2'}
+            agent any
             
             steps {
                 script{
                   echo 'copy the artifacts repo'
                   echo "copy the artifacts in ${params.Env}"
-                  sh "mvn deploy -s settings.xml"
+                  //sh "mvn deploy -s settings.xml"
                 }  
             }
         }
